@@ -1,6 +1,6 @@
-# Open Journals :: Upload files
+# Open Journals :: Update paper files
 
-This action creates a topic branch for a paper in the corresponding Open Journal's papers repository and updates the paper files (pdf/jats/crossref xml).
+This action creates a topic branch in the corresponding Open Journal's papers repository and updates the published paper files (pdf/jats/crossref xml).
 
 ## Usage
 
