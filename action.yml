@@ -1,0 +1,53 @@
+name: Uploader
+description: "Update PDF/JATS/Crossref files for a published paper"
+inputs:
+  papers_repo:
+    description: The repository containing the journal's published and submitted papers
+    required: true
+  issue_id:
+    description: The issue number of the submission
+    required: true
+  branch_prefix:
+    description: The prefix to add to the name of all branches
+    required: false
+    default: ""
+  pdf_path:
+    description: The path to the PDF file
+    required: false
+  jats_path:
+    description: The path to the JATS file
+    required: false
+  crossref_path:
+    description: The path to the Crossref XML file
+    required: false
+  bot_token:
+    description: The access token to be used to upload files
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - name: Install Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.1.1
+        bundler-cache: true
+        cache-version: update-paper-files
+        bundler: Gemfile.lock
+        working-directory: ${{ github.action_path }}
+    - name: Update files in a topic branch
+      id: uploader
+      shell: bash
+      env:
+        PAPERS_REPO: ${{ inputs.papers_repo }}
+        BRANCH_PREFIX: ${{ inputs.branch_prefix }}
+        ISSUE_ID: ${{ inputs.issue_id }}
+        PDF_PATH: ${{ inputs.pdf_path }}
+        JATS_PATH: ${{ inputs.jats_path }}
+        CROSSREF_PATH: ${{ inputs.crossref_path }}
+        BOT_TOKEN: ${{ inputs.bot_token }}
+        BUNDLE_GEMFILE: ${{ github.action_path }}/Gemfile
+      run: |
+        bundle exec ruby ${{ github.action_path }}/update_branch.rb
+branding:
+  icon: upload
+  color: green
