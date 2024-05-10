@@ -24,7 +24,7 @@ rescue Octokit::NotFound
 end
 
 pdf_uploaded_path = "#{branch}/10.21105.#{branch}.pdf"
-jats_uploaded_path = "#{branch}/10.21105.#{branch}.jats"
+jats_uploaded_path = "#{branch}/paper.jats/10.21105.#{branch}.jats"
 crossref_uploaded_path = "#{branch}/10.21105.#{branch}.crossref.xml"
 
 # Update PDF file if present
